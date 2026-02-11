@@ -3,8 +3,6 @@ import { Grid, Paper, Typography, Box, useMediaQuery } from "@mui/material";
 import SpotRate from "../components/SpotRate";
 import CommodityTable from "../components/CommodityTable";
 import NewsTicker from "../components/News";
-import JasMetalLogo from "/images/logo.svg";
-import AurifyLogo from "/images/logo.svg";
 
 import {
   fetchSpotRates,
@@ -18,6 +16,7 @@ import WorldClock from "../components/WorldClock";
 import TradingViewMarketTable from "../components/TradingViewMarket";
 import YoutubeVideo from "../components/YoutubeVideo";
 import PoweredByAurify from "../components/PoweredByAurify";
+import Logo from "../components/Logo";
 
 function TvScreen() {
   const [showLimitModal, setShowLimitModal] = useState(false);
@@ -167,6 +166,8 @@ function TvScreen() {
         backgroundImage: "linear-gradient(220deg, #1f1f1f, #000)",
       }}
     >
+      <div className="background_overlay">
+      </div>
       <div className="background_lines">
         <img src="/images/background1.png" alt="Background Lines" />
       </div>
@@ -189,9 +190,9 @@ function TvScreen() {
           flexDirection="column"
           justifyContent="space-around"
         >
+          <Logo />
 
 
-          <WorldClock />
           <CommodityTable commodities={commodities} />
         </Grid>
 
@@ -202,16 +203,8 @@ function TvScreen() {
           flexDirection="column"
           justifyContent="space-around"
         >
-          <Box
-            sx={{
-              height: "auto",
-              width: "25vw",
-              margin: 'auto',
-              marginBottom: "2vw",
-            }}
-          >
-            <img src={JasMetalLogo} alt="" />
-          </Box>
+          <WorldClock />
+
           <SpotRate />
 
           <PoweredByAurify />
