@@ -158,7 +158,7 @@ const CommodityTable = ({ commodities }) => {
 
               mb: "0.5vw",
               alignItems: "center",
-              bgcolor: "rgba(13, 22, 32, 0.6)",
+              bgcolor: "rgba(13, 22, 32, 0.2)",
             }}
           >
             <Typography
