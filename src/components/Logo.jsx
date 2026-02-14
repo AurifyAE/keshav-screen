@@ -52,7 +52,7 @@ const Logo = () => {
         >
             <Box
                 sx={{
-                    width: "32vw",
+                    width: "43vw",
                 }}
             >
                 {/* Logo */}

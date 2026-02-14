@@ -29,6 +29,8 @@ function TvScreen() {
   const [goldAskSpread, setGoldAskSpread] = useState("");
   const [silverBidSpread, setSilverBidSpread] = useState("");
   const [silverAskSpread, setSilverAskSpread] = useState("");
+  const [platinumBidSpread, setPlatinumBidSpread] = useState("");
+  const [platinumAskSpread, setPlatinumAskSpread] = useState("");
   const [symbols, setSymbols] = useState(["GOLD", "SILVER"]);
   const [error, setError] = useState(null);
 
@@ -42,6 +44,8 @@ function TvScreen() {
     goldAskSpread,
     silverBidSpread,
     silverAskSpread,
+    platinumBidSpread,
+    platinumAskSpread,
   );
 
   useEffect(() => {
@@ -60,12 +64,16 @@ function TvScreen() {
           goldAskSpread,
           silverBidSpread,
           silverAskSpread,
+          platinumBidSpread,
+          platinumAskSpread,
         } = spotRatesRes.data.info;
         setCommodities(commodities);
         setGoldBidSpread(goldBidSpread);
         setGoldAskSpread(goldAskSpread);
         setSilverBidSpread(silverBidSpread);
         setSilverAskSpread(silverAskSpread);
+        setPlatinumBidSpread(platinumBidSpread);
+        setPlatinumAskSpread(platinumAskSpread);
 
         // Handle Server URL
         const { serverURL } = serverURLRes.data.info;
@@ -74,9 +82,7 @@ function TvScreen() {
         // Handle News
         setNews(newsRes.data.news.news);
 
-        console.log(newsRes.data);
       } catch (error) {
-        console.log("Error fetching data:", error);
         setError("An error occurred while fetching data");
       }
     };
@@ -86,7 +92,6 @@ function TvScreen() {
     // Fetch TV screen data (you can leave this as a separate call)
     fetchTVScreenData(adminId)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           // Allow TV screen view
           setShowLimitModal(false);
@@ -120,7 +125,13 @@ function TvScreen() {
         console.log("Disconnected from WebSocket server");
       });
 
+
+
       socket.on("market-data", (data) => {
+        
+        console.log('asdasdasdasdasd',data);
+        
+      
         if (data && data.symbol) {
           setMarketData((prevData) => ({
             ...prevData,

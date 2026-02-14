@@ -2,24 +2,26 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useSpotRate } from "../context/SpotRateContext";
 
-import goldImg from "/images/gold-biscut.png";
-import goldLabel from "/images/gold-icon.svg";
-import silverImg from "/images/silver-biscut.png";
-import silverLabel from "/images/silver-icon.svg";
 
 const SpotRate = () => {
-  const { goldData, silverData } = useSpotRate();
+  const { goldData, silverData, platinumData } = useSpotRate();
+
+  
 
   const [goldBidDir, setGoldBidDir] = useState("neutral");
   const [goldAskDir, setGoldAskDir] = useState("neutral");
   const [silverBidDir, setSilverBidDir] = useState("neutral");
   const [silverAskDir, setSilverAskDir] = useState("neutral");
+  const [platinumBidDir, setplatinumBidDir] = useState("neutral");
+  const [platinumAskDir, setplatinumAskDir] = useState("neutral");
 
   const prev = useRef({
     goldBid: null,
     goldAsk: null,
     silverBid: null,
     silverAsk: null,
+    platinumBid: null,
+    platinumAsk: null,
   });
 
   const detectChange = (prevVal, currVal, setDir) => {
@@ -51,6 +53,15 @@ const SpotRate = () => {
   useEffect(() => {
     prev.current.silverAsk = detectChange(prev.current.silverAsk, silverData.ask, setSilverAskDir);
   }, [silverData.ask]);
+  useEffect(() => {
+    prev.current.platinumBid = detectChange(prev.current.platinumBid, platinumData.bid, setplatinumBidDir);
+  }, [platinumData.bid]);
+
+  useEffect(() => {
+    prev.current.platinumAsk = detectChange(prev.current.platinumAsk, platinumData.ask, setplatinumAskDir);
+  }, [platinumData.ask]);
+
+
 
   const getColors = (dir) => {
     if (dir === "rise") return { bgColor: "#00ff9d", border: "1px solid #00ff9d" };
@@ -67,7 +78,7 @@ const SpotRate = () => {
         sx={{
           position: "relative",
           flex: 1,
-          mb:'1vw',
+          mb: '1vw',
 
           overflow: "hidden",
           ...(hasPulse && {
@@ -82,7 +93,7 @@ const SpotRate = () => {
             fontWeight: 600,
             letterSpacing: "0.25vw",
             color: "#CBD8F7",
-            mb:'1vw',
+            mb: '1vw',
             textShadow: "0 0 0.8vw #5577FF86",
           }}
         >
@@ -111,8 +122,29 @@ const SpotRate = () => {
     );
   };
 
-  const MetalPanel = ({ metalImg, data, bidDir, askDir, theme }) => {
+  const MetalPanel = ({ data, bidDir, askDir, theme }) => {
     const isGold = theme === "gold";
+    const isSilver = theme === "silver";
+    const isPlatinum = theme === "platinum";
+
+
+    let title = "GOLD";
+    let gradient = "linear-gradient(90deg, #ffe066, #ffd700, #ffbb33)";
+    let shadow = "0 0 3vw rgba(255 217 0 / 0.11) inset";
+    let borderColor = "#FFD90052";
+
+
+    if (isSilver) {
+      title = "SILVER";
+      gradient = "linear-gradient(90deg, #aaa, #fff, #aaa)";
+      shadow = "0 0 3vw rgba(160,180,255,0.15) inset";
+      borderColor = "#A0A0FF8E";
+    } else if (isPlatinum) {
+      title = "PLATINUM";
+      gradient = "linear-gradient(90deg, #c0c0c0, #e0e0e0, #ffffff)";
+      shadow = "0 0 3vw rgba(220,220,255,0.18) inset";
+      borderColor = "#D0D0FF70";
+    }
 
     return (
       <Box
@@ -128,15 +160,7 @@ const SpotRate = () => {
           borderRadius: '1vw',
           boxShadow: "0 0.8vw 3.2vw rgba(0,0,0,0.7)",
           backdropFilter: "blur(0.4vw)",
-          ...(isGold
-            ? {
-              borderColor: " #FFD90052",
-              boxShadow: "0 0 3vw rgba(255 217 0 / 0.11) inset",
-            }
-            : {
-              borderColor: " #A0A0FF8E",
-              boxShadow: "0 0 3vw rgba(160,180,255,0.15) inset",
-            }),
+          ...(isGold || isSilver || isPlatinum ? { boxShadow: shadow } : {}),
         }}
       >
 
@@ -145,9 +169,7 @@ const SpotRate = () => {
             fontSize: "1.6vw",
             fontWeight: 800,
             letterSpacing: "0.1vw",
-            background: isGold
-              ? "linear-gradient(90deg, #ffe066, #ffd700, #ffbb33)"
-              : "linear-gradient(90deg, #aaa, #fff, #aaa)",
+            background: gradient,
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
@@ -157,10 +179,10 @@ const SpotRate = () => {
             textShadow: isGold ? "0 0 1.4vw #FFDD559A" : "0 0 1vw rgba(255,255,255,0.4)",
           }}
         >
-          {isGold ? "GOLD" : "SILVER"}
+          {title}
         </Typography>
 
-        <Box sx={{ fontSize: '1.5vw',fontWeight:'700' }}>
+        <Box sx={{ fontSize: '1.5vw', fontWeight: '700' }}>
           <PricePulse label="BID" value={data.bid} dir={bidDir} />
           HIGH <span className="hl-value-high text-[#4aff95]">{data.high}</span>
 
@@ -170,7 +192,7 @@ const SpotRate = () => {
 
 
         {/* Price Boxes */}
-        <Box sx={{ fontSize: '1.5vw',fontWeight:'700' }}>
+        <Box sx={{ fontSize: '1.5vw', fontWeight: '700' }}>
           <PricePulse label="ASK" value={data.ask} dir={askDir} />
           LOW <span className="hl-value-low text-[#ff4a86]">{data.low}</span>
 
@@ -183,10 +205,8 @@ const SpotRate = () => {
 
   return (
     <Box sx={{ p: "1.5vw 1vw", fontFamily: '"Orbitron", "Segoe UI", sans-serif' }}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "2vw", maxWidth: "58vw", mx: "auto" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "1vw", maxWidth: "58vw", mx: "auto" }}>
         <MetalPanel
-          titleImg={goldLabel}
-          metalImg={goldImg}
           data={goldData}
           bidDir={goldBidDir}
           askDir={goldAskDir}
@@ -194,12 +214,16 @@ const SpotRate = () => {
         />
 
         <MetalPanel
-          titleImg={silverLabel}
-          metalImg={silverImg}
           data={silverData}
           bidDir={silverBidDir}
           askDir={silverAskDir}
           theme="silver"
+        />
+        <MetalPanel
+          data={platinumData}
+          bidDir={platinumBidDir}
+          askDir={platinumAskDir}
+          theme="platinum"
         />
       </Box>
 
