@@ -13,8 +13,6 @@ import {
 import io from "socket.io-client";
 import { useSpotRate } from "../context/SpotRateContext";
 import WorldClock from "../components/WorldClock";
-import TradingViewMarketTable from "../components/TradingViewMarket";
-import YoutubeVideo from "../components/YoutubeVideo";
 import PoweredByAurify from "../components/PoweredByAurify";
 import Logo from "../components/Logo";
 
@@ -29,7 +27,9 @@ function TvScreen() {
   const [goldAskSpread, setGoldAskSpread] = useState("");
   const [silverBidSpread, setSilverBidSpread] = useState("");
   const [silverAskSpread, setSilverAskSpread] = useState("");
-  const [symbols, setSymbols] = useState(["GOLD", "SILVER"]);
+  const [platinumBidSpread, setPlatinumBidSpread] = useState("");
+  const [platinumAskSpread, setPlatinumAskSpread] = useState("");
+  const [symbols, setSymbols] = useState(["GOLD", "SILVER", "PLATINUM"]);
   const [error, setError] = useState(null);
 
   const { updateMarketData } = useSpotRate();
@@ -42,6 +42,8 @@ function TvScreen() {
     goldAskSpread,
     silverBidSpread,
     silverAskSpread,
+    platinumBidSpread,
+    platinumAskSpread,
   );
 
   useEffect(() => {
@@ -60,12 +62,16 @@ function TvScreen() {
           goldAskSpread,
           silverBidSpread,
           silverAskSpread,
+          platinumBidSpread,
+          platinumAskSpread,
         } = spotRatesRes.data.info;
         setCommodities(commodities);
         setGoldBidSpread(goldBidSpread);
         setGoldAskSpread(goldAskSpread);
         setSilverBidSpread(silverBidSpread);
         setSilverAskSpread(silverAskSpread);
+        setPlatinumBidSpread(platinumBidSpread);
+        setPlatinumAskSpread(platinumAskSpread);
 
         // Handle Server URL
         const { serverURL } = serverURLRes.data.info;
@@ -73,10 +79,7 @@ function TvScreen() {
 
         // Handle News
         setNews(newsRes.data.news.news);
-
-        console.log(newsRes.data);
       } catch (error) {
-        console.log("Error fetching data:", error);
         setError("An error occurred while fetching data");
       }
     };
@@ -86,7 +89,6 @@ function TvScreen() {
     // Fetch TV screen data (you can leave this as a separate call)
     fetchTVScreenData(adminId)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           // Allow TV screen view
           setShowLimitModal(false);
@@ -166,8 +168,7 @@ function TvScreen() {
         backgroundImage: "linear-gradient(220deg, #1f1f1f, #000)",
       }}
     >
-      <div className="background_overlay">
-      </div>
+      <div className="background_overlay"></div>
       <div className="background_lines">
         <img src="/images/background2.png" alt="Background Lines" />
       </div>
@@ -181,7 +182,7 @@ function TvScreen() {
         zIndex="1"
         position="relative"
         margin="0"
-        pb='3vw'
+        pb="3vw"
       >
         {/* Side: Commodity Table */}
         <Grid
@@ -192,8 +193,8 @@ function TvScreen() {
         >
           <Logo />
 
-
           <CommodityTable commodities={commodities} />
+          <PoweredByAurify />
         </Grid>
 
         {/* Side: SpotRate & Date Time */}
@@ -206,8 +207,6 @@ function TvScreen() {
           <WorldClock />
 
           <SpotRate />
-
-          <PoweredByAurify />
         </Grid>
 
         <Grid

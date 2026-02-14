@@ -12,11 +12,11 @@ const PoweredByAurify = () => {
         position: "relative",
         display: "flex",
         alignItems: "center",
-        justifyContent: "end",
+        justifyContent: "center",
         gap: "0.6vw",
         padding: "0.8vw 1.4vw",
         // margin: "0 auto",
-        mt: "auto",
+        // mt: "auto",
       }}
     >
  
