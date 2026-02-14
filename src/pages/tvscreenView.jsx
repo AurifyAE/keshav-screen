@@ -13,8 +13,6 @@ import {
 import io from "socket.io-client";
 import { useSpotRate } from "../context/SpotRateContext";
 import WorldClock from "../components/WorldClock";
-import TradingViewMarketTable from "../components/TradingViewMarket";
-import YoutubeVideo from "../components/YoutubeVideo";
 import PoweredByAurify from "../components/PoweredByAurify";
 import Logo from "../components/Logo";
 
@@ -31,7 +29,7 @@ function TvScreen() {
   const [silverAskSpread, setSilverAskSpread] = useState("");
   const [platinumBidSpread, setPlatinumBidSpread] = useState("");
   const [platinumAskSpread, setPlatinumAskSpread] = useState("");
-  const [symbols, setSymbols] = useState(["GOLD", "SILVER"]);
+  const [symbols, setSymbols] = useState(["GOLD", "SILVER", "PLATINUM"]);
   const [error, setError] = useState(null);
 
   const { updateMarketData } = useSpotRate();
@@ -81,7 +79,6 @@ function TvScreen() {
 
         // Handle News
         setNews(newsRes.data.news.news);
-
       } catch (error) {
         setError("An error occurred while fetching data");
       }
@@ -125,13 +122,7 @@ function TvScreen() {
         console.log("Disconnected from WebSocket server");
       });
 
-
-
       socket.on("market-data", (data) => {
-        
-        console.log('asdasdasdasdasd',data);
-        
-      
         if (data && data.symbol) {
           setMarketData((prevData) => ({
             ...prevData,
@@ -177,8 +168,7 @@ function TvScreen() {
         backgroundImage: "linear-gradient(220deg, #1f1f1f, #000)",
       }}
     >
-      <div className="background_overlay">
-      </div>
+      <div className="background_overlay"></div>
       <div className="background_lines">
         <img src="/images/background2.png" alt="Background Lines" />
       </div>
@@ -192,7 +182,7 @@ function TvScreen() {
         zIndex="1"
         position="relative"
         margin="0"
-        pb='3vw'
+        pb="3vw"
       >
         {/* Side: Commodity Table */}
         <Grid
@@ -203,8 +193,8 @@ function TvScreen() {
         >
           <Logo />
 
-
           <CommodityTable commodities={commodities} />
+          <PoweredByAurify />
         </Grid>
 
         {/* Side: SpotRate & Date Time */}
@@ -217,8 +207,6 @@ function TvScreen() {
           <WorldClock />
 
           <SpotRate />
-
-          <PoweredByAurify />
         </Grid>
 
         <Grid

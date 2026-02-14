@@ -89,11 +89,11 @@ const SpotRate = () => {
       >
         <Typography
           sx={{
-            fontSize: "1.3vw",
+            fontSize: "1vw",
             fontWeight: 600,
             letterSpacing: "0.25vw",
             color: "#CBD8F7",
-            mb: '1vw',
+            mb: '0.5vw',
             textShadow: "0 0 0.8vw #5577FF86",
           }}
         >
@@ -142,7 +142,7 @@ const SpotRate = () => {
     } else if (isPlatinum) {
       title = "PLATINUM";
       gradient = "linear-gradient(90deg, #c0c0c0, #e0e0e0, #ffffff)";
-      shadow = "0 0 3vw rgba(220,220,255,0.18) inset";
+      shadow = "0 0 3vw rgba(172 172 172 / 0.24) inset";
       borderColor = "#D0D0FF70";
     }
 
@@ -155,7 +155,7 @@ const SpotRate = () => {
           overflow: "hidden",
           display: 'grid',
           gap: '1.5vw',
-          padding: '1vw',
+          padding: ' 0.5vw 1vw',
           gridTemplateColumns: '0.8fr 1fr 1fr',
           borderRadius: '1vw',
           boxShadow: "0 0.8vw 3.2vw rgba(0,0,0,0.7)",
@@ -182,7 +182,7 @@ const SpotRate = () => {
           {title}
         </Typography>
 
-        <Box sx={{ fontSize: '1.5vw', fontWeight: '700' }}>
+        <Box sx={{ fontSize: '1.1vw', fontWeight: '700' }}>
           <PricePulse label="BID" value={data.bid} dir={bidDir} />
           HIGH <span className="hl-value-high text-[#4aff95]">{data.high}</span>
 
@@ -192,7 +192,7 @@ const SpotRate = () => {
 
 
         {/* Price Boxes */}
-        <Box sx={{ fontSize: '1.5vw', fontWeight: '700' }}>
+        <Box sx={{ fontSize: '1.1vw', fontWeight: '700' }}>
           <PricePulse label="ASK" value={data.ask} dir={askDir} />
           LOW <span className="hl-value-low text-[#ff4a86]">{data.low}</span>
 

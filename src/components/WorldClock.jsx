@@ -54,7 +54,6 @@ const WorldClockHorizontal = () => {
         flexDirection: "column",
         padding: "1.5vw 2vw",
         width: "100%",
-        mb: "0.5vw",
       }}
     >
       <Box

@@ -16,6 +16,8 @@ const NewsTicker = ({ newsItems = [] }) => {
         overflow: "hidden",
         background: " rgba(0,0,0,.4)",
         borderTop: "1px solid",
+        backdropFilter:'blur(15px)',
+
         borderImage:
           "linear-gradient(90deg,  #C9F89269,  #92F8C069, #B6E7FC57) 1",
       }}
