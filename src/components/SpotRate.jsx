@@ -170,7 +170,7 @@ const SpotRate = () => {
           overflow: "hidden",
           display: 'grid',
           gap: '1.5vw',
-          padding: ' 0.5vw 1vw',
+          padding: { xs: ' 2vw 1vw', md: ' 0.5vw 1vw' },
           gridTemplateColumns: '0.8fr 1fr 1fr',
           borderRadius: '1vw',
           boxShadow: "0 0.8vw 3.2vw rgba(0,0,0,0.7)",

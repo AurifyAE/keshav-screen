@@ -102,8 +102,8 @@ const WorldClockHorizontal = () => {
         {/* Rotating Image */}
         <Box
           sx={{
-            width: "16vw",
-            height: "7vw",
+            width: { xs: "25vw", md: "16vw" },
+            height: { xs: "14vw", md: "7vw" },
             borderRadius: "0.45vw",
             overflow: "hidden",
             boxShadow: "0 0.22vw 0.65vw rgba(0,0,0,0.3)",
