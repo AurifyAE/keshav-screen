@@ -52,7 +52,7 @@ const Logo = () => {
         >
             <Box
                 sx={{
-                    width: "43vw",
+                    width: { xs: "55vw", md: "43vw" },
                 }}
             >
                 {/* Logo */}
@@ -66,7 +66,7 @@ const Logo = () => {
                     width: "100%",
                     justifyContent: "space-evenly",
                     mt: "1.5vw",
-                    rowGap: { xs: '20px', md: 'auto' }
+                    rowGap: { xs: "20px", md: "auto" },
                 }}
             >
                 {timeZones.map((zone) => (

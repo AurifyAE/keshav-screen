@@ -11,17 +11,15 @@ const NewsTicker = ({ newsItems = [] }) => {
       sx={{
         width: "100%",
         height: {
-
-          xs: "5vw",
-          md: "3vw"
-
+          xs: "7vw",
+          md: "3vw",
         },
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
         background: " rgba(0,0,0,.4)",
         borderTop: "1px solid",
-        backdropFilter: 'blur(15px)',
+        backdropFilter: "blur(15px)",
 
         borderImage:
           "linear-gradient(90deg,  #C9F89269,  #92F8C069, #B6E7FC57) 1",
@@ -33,12 +31,9 @@ const NewsTicker = ({ newsItems = [] }) => {
           color: "#ffffff",
           background: "linear-gradient(180deg, rgba(0,0,0), rgba(20,20,20))",
           fontSize: {
-
-            xs: "2vw",
-            md: "1.2vw"
-
+            xs: "13px",
+            md: "1.2vw",
           },
-
 
           whiteSpace: "nowrap",
           padding: "0 1.5vw",
@@ -56,10 +51,17 @@ const NewsTicker = ({ newsItems = [] }) => {
       </Typography>
 
       {/* SCROLL AREA */}
-      <Box sx={{ flex: 1, overflow: "hidden" }}>
+      <Box
+        sx={{
+          flex: 1,
+          overflow: "hidden",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <Box
           sx={{
-            height: '100%',
+            height: "100%",
             whiteSpace: "nowrap",
             display: "inline-flex",
             alignItems: "center",
@@ -73,11 +75,10 @@ const NewsTicker = ({ newsItems = [] }) => {
               sx={{
                 color: "#e6e6e6",
                 fontSize: {
-
-                  xs: "2vw",
-                  md: "1.3vw"
-
-                }, fontWeight: 500,
+                  xs: "14px",
+                  md: "1.3vw",
+                },
+                fontWeight: 500,
                 whiteSpace: "nowrap",
                 marginRight: "4vw",
               }}
