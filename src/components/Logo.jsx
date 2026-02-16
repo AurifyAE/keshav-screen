@@ -44,7 +44,7 @@ const Logo = () => {
             sx={{
                 width: "100%",
                 display: "flex",
-                flexDirection: 'column',
+                flexDirection: "column",
                 alignItems: "center",
                 mb: "2vw",
                 textAlign: "center",
@@ -62,9 +62,11 @@ const Logo = () => {
             <Box
                 sx={{
                     display: "flex",
-                    width: '100%',
+                    flexWrap: "wrap",
+                    width: "100%",
                     justifyContent: "space-evenly",
                     mt: "1.5vw",
+                    rowGap: { xs: '20px', md: 'auto' }
                 }}
             >
                 {timeZones.map((zone) => (
@@ -73,28 +75,29 @@ const Logo = () => {
                         sx={{
                             display: "flex",
                             alignItems: "center",
-                            gap:{
+                            justifyContent: "center",
+                            gap: {
                                 xs: "1vw",
-                                md: "0.6vw"
-
-
+                                md: "0.6vw",
+                            },
+                            width: {
+                                xs: "50%",
+                                md: "auto",
                             },
                         }}
                     >
                         <img
                             src={zone.flag}
                             alt={zone.name}
-                            style={{ width: 'clamp(35px,2.5vw,25px) ' }}
+                            style={{ width: "clamp(30px,2.5vw,2.5vw) " }}
                         />
 
                         <Box>
                             <Typography
                                 sx={{
                                     fontSize: {
-
                                         xs: "15px",
-                                        md: "0.95vw"
-
+                                        md: "0.95vw",
                                     },
                                     fontWeight: 600,
                                     color: "#70DDF0",
@@ -105,11 +108,10 @@ const Logo = () => {
                             <Typography
                                 sx={{
                                     fontSize: {
-
                                         xs: "15px",
-                                        md: "1.05vw"
-
-                                    }, color: "#fff",
+                                        md: "1.05vw",
+                                    },
+                                    color: "#fff",
                                 }}
                             >
                                 {times[zone.id] || "--:--"}
