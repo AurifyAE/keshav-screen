@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useSpotRate } from "../context/SpotRateContext";
 
-
 const OUNCE = 31.103;
 const AED = 3.674;
 
@@ -39,30 +38,37 @@ const CommodityTable = ({ commodities }) => {
     });
   };
 
-  const rows = commodities
-    ?.map((item) => {
-      const spot = getSpot(item.metal);
-      if (!spot) return null;
+  const rows =
+    commodities
+      ?.map((item) => {
+        const spot = getSpot(item.metal);
+        if (!spot) return null;
 
-      const mult = UNIT_MULTIPLIER[item.weight] || 1;
-      const pur = purityFactor(item.purity);
+        const mult = UNIT_MULTIPLIER[item.weight] || 1;
+        const pur = purityFactor(item.purity);
 
-      const baseBid = (spot.bid / OUNCE) * AED * mult * item.unit * pur;
-      const baseAsk = (spot.ask / OUNCE) * AED * mult * item.unit * pur;
+        const baseBid = (spot.bid / OUNCE) * AED * mult * item.unit * pur;
+        const baseAsk = (spot.ask / OUNCE) * AED * mult * item.unit * pur;
 
-      const bid = baseBid + (Number(item.buyCharge) || 0) + (Number(item.buyPremium) || 0);
-      const ask = baseAsk + (Number(item.sellCharge) || 0) + (Number(item.sellPremium) || 0);
+        const bid =
+          baseBid +
+          (Number(item.buyCharge) || 0) +
+          (Number(item.buyPremium) || 0);
+        const ask =
+          baseAsk +
+          (Number(item.sellCharge) || 0) +
+          (Number(item.sellPremium) || 0);
 
-      return {
-        display: item.purity
-          ? `${item.purity} ${item.metal === "Gold Ten TOLA" ? "Gold" : item.metal}`
-          : item.metal,
-        unit: `${item.unit} ${item.weight}`,
-        bid,
-        ask,
-      };
-    })
-    .filter(Boolean) ?? [];
+        return {
+          display: item.purity
+            ? `${item.purity} ${item.metal === "Gold Ten TOLA" ? "Gold" : item.metal}`
+            : item.metal,
+          unit: `${item.unit} ${item.weight}`,
+          bid,
+          ask,
+        };
+      })
+      .filter(Boolean) ?? [];
 
   return (
     <Box
@@ -86,7 +92,10 @@ const CommodityTable = ({ commodities }) => {
       >
         <Typography
           sx={{
-            fontSize: "1.2vw",
+            fontSize: {
+              xs: "2vw",
+              md: "1.15vw",
+            },
             fontWeight: 700,
             color: "#000",
             textTransform: "uppercase",
@@ -98,7 +107,10 @@ const CommodityTable = ({ commodities }) => {
 
         <Typography
           sx={{
-            fontSize: "1.15vw",
+            fontSize: {
+              xs: "2vw",
+              md: "1.15vw",
+            },
             fontWeight: 700,
             color: "#000",
             textAlign: "center",
@@ -110,7 +122,10 @@ const CommodityTable = ({ commodities }) => {
 
         <Typography
           sx={{
-            fontSize: "1.15vw",
+            fontSize: {
+              xs: "2vw",
+              md: "1.15vw",
+            },
             fontWeight: 700,
             color: "#000",
             textAlign: "center",
@@ -122,7 +137,10 @@ const CommodityTable = ({ commodities }) => {
 
         <Typography
           sx={{
-            fontSize: "1.15vw",
+            fontSize: {
+              xs: "2vw",
+              md: "1.15vw",
+            },
             fontWeight: 700,
             color: "#000",
             textAlign: "center",
@@ -163,7 +181,12 @@ const CommodityTable = ({ commodities }) => {
           >
             <Typography
               sx={{
-                fontSize: "1.25vw",
+                fontSize: {
+
+                  xs: "2vw",
+                  md: "1.25vw"
+
+                },
                 fontWeight: 700,
               }}
             >
@@ -172,8 +195,12 @@ const CommodityTable = ({ commodities }) => {
 
             <Typography
               sx={{
-                fontSize: "1.35vw",
-                fontWeight: 700,
+                fontSize: {
+
+                  xs: "2vw",
+                  md: "1.25vw"
+
+                }, fontWeight: 700,
                 textAlign: "center",
               }}
             >
@@ -182,8 +209,12 @@ const CommodityTable = ({ commodities }) => {
 
             <Typography
               sx={{
-                fontSize: "1.35vw",
-                fontWeight: 700,
+                fontSize: {
+
+                  xs: "2vw",
+                  md: "1.25vw"
+
+                }, fontWeight: 700,
                 textAlign: "center",
               }}
             >
@@ -192,8 +223,12 @@ const CommodityTable = ({ commodities }) => {
 
             <Typography
               sx={{
-                fontSize: "1.35vw",
-                fontWeight: 700,
+                fontSize: {
+
+                  xs: "2vw",
+                  md: "1.25vw"
+
+                }, fontWeight: 700,
                 textAlign: "center",
               }}
             >

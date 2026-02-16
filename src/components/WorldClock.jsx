@@ -73,7 +73,10 @@ const WorldClockHorizontal = () => {
         >
           <Typography
             sx={{
-              fontSize: "2vw",
+              fontSize: {
+                xs: "4vw",
+                md: "2vw",
+              },
               fontWeight: 700,
               letterSpacing: "0.15vw",
               color: "#70DDF0",
@@ -84,7 +87,10 @@ const WorldClockHorizontal = () => {
 
           <Typography
             sx={{
-              fontSize: "1.5vw",
+              fontSize: {
+                xs: "3vw",
+                md: "1.5vw",
+              },
               fontWeight: 500,
               color: "#C8F1F8",
             }}
@@ -92,7 +98,6 @@ const WorldClockHorizontal = () => {
             {dateInfo.day || "———"}
           </Typography>
         </Box>
-
 
         {/* Rotating Image */}
         <Box
@@ -114,8 +119,6 @@ const WorldClockHorizontal = () => {
             }}
           />
         </Box>
-
-
       </Box>
     </Box>
   );

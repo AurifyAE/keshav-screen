@@ -73,19 +73,29 @@ const Logo = () => {
                         sx={{
                             display: "flex",
                             alignItems: "center",
-                            gap: "0.6vw",
+                            gap:{
+                                xs: "1vw",
+                                md: "0.6vw"
+
+
+                            },
                         }}
                     >
                         <img
                             src={zone.flag}
                             alt={zone.name}
-                            style={{ width: "2.5vw" }}
+                            style={{ width: 'clamp(35px,2.5vw,25px) ' }}
                         />
 
                         <Box>
                             <Typography
                                 sx={{
-                                    fontSize: "0.95vw",
+                                    fontSize: {
+
+                                        xs: "15px",
+                                        md: "0.95vw"
+
+                                    },
                                     fontWeight: 600,
                                     color: "#70DDF0",
                                 }}
@@ -94,8 +104,12 @@ const Logo = () => {
                             </Typography>
                             <Typography
                                 sx={{
-                                    fontSize: "1.05vw",
-                                    color: "#fff",
+                                    fontSize: {
+
+                                        xs: "15px",
+                                        md: "1.05vw"
+
+                                    }, color: "#fff",
                                 }}
                             >
                                 {times[zone.id] || "--:--"}

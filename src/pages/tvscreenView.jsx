@@ -186,7 +186,9 @@ function TvScreen() {
       >
         {/* Side: Commodity Table */}
         <Grid
+          xs={12}
           md={6.5}
+          
           display="flex"
           flexDirection="column"
           justifyContent="space-around"
@@ -199,6 +201,7 @@ function TvScreen() {
 
         {/* Side: SpotRate & Date Time */}
         <Grid
+          xs={12}
           md={5.5}
           display="flex"
           flexDirection="column"

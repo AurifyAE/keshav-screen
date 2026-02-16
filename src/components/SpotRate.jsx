@@ -6,7 +6,7 @@ import { useSpotRate } from "../context/SpotRateContext";
 const SpotRate = () => {
   const { goldData, silverData, platinumData } = useSpotRate();
 
-  
+
 
   const [goldBidDir, setGoldBidDir] = useState("neutral");
   const [goldAskDir, setGoldAskDir] = useState("neutral");
@@ -89,7 +89,15 @@ const SpotRate = () => {
       >
         <Typography
           sx={{
-            fontSize: "1vw",
+            // fontSize: "1vw",
+
+            fontSize: {
+              xs: "3vw",   // mobile
+              sm: "2.5vw",   // small tablets
+              md: "1.8vw",   // laptops
+              lg: "1vw",   // desktop
+              xl: "1vw",   // large screens
+            },
             fontWeight: 600,
             letterSpacing: "0.25vw",
             color: "#CBD8F7",
@@ -102,7 +110,14 @@ const SpotRate = () => {
 
         <Typography
           sx={{
-            fontSize: "2.4vw",
+            // fontSize: "2.4vw",
+            fontSize: {
+              xs: "3vw",   // mobile
+              sm: "2.5vw",   // small tablets
+              md: "1.8vw",   // laptops
+              lg: "2.4vw",   // desktop
+              xl: "2.4vw",   // large screens
+            },
             fontWeight: 800,
             letterSpacing: "0.18vw",
             textAlign: "center",
@@ -166,7 +181,15 @@ const SpotRate = () => {
 
         <Typography
           sx={{
-            fontSize: "1.6vw",
+
+            fontSize: {
+              xs: "3vw",   // mobile
+              sm: "2.5vw",   // small tablets
+              md: "1.8vw",   // laptops
+              lg: "1.6vw",   // desktop
+              xl: "1.4vw",   // large screens
+            },
+
             fontWeight: 800,
             letterSpacing: "0.1vw",
             background: gradient,
@@ -182,7 +205,19 @@ const SpotRate = () => {
           {title}
         </Typography>
 
-        <Box sx={{ fontSize: '1.1vw', fontWeight: '700' }}>
+        <Box sx={{
+
+          fontSize: {
+            xs: "3vw",   // mobile
+            sm: "2.5vw",   // small tablets
+            md: "1.8vw",   // laptops
+            lg: "1.6vw",   // desktop
+            xl: "1.4vw",   // large screens
+          },
+
+
+          fontWeight: '700'
+        }}>
           <PricePulse label="BID" value={data.bid} dir={bidDir} />
           HIGH <span className="hl-value-high text-[#4aff95]">{data.high}</span>
 
@@ -192,20 +227,29 @@ const SpotRate = () => {
 
 
         {/* Price Boxes */}
-        <Box sx={{ fontSize: '1.1vw', fontWeight: '700' }}>
+        <Box sx={{
+          fontSize: {
+            xs: "3vw",   // mobile
+            sm: "2.5vw",   // small tablets
+            md: "1.8vw",   // laptops
+            lg: "1.6vw",   // desktop
+            xl: "1.4vw",   // large screens
+          },
+          fontWeight: '700'
+        }}>
           <PricePulse label="ASK" value={data.ask} dir={askDir} />
           LOW <span className="hl-value-low text-[#ff4a86]">{data.low}</span>
 
         </Box>
 
 
-      </Box>
+      </Box >
     );
   };
 
   return (
     <Box sx={{ p: "1.5vw 1vw", fontFamily: '"Orbitron", "Segoe UI", sans-serif' }}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "1vw", maxWidth: "58vw", mx: "auto" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "1vw", mx: "auto" }}>
         <MetalPanel
           data={goldData}
           bidDir={goldBidDir}
