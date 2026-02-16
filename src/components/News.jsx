@@ -59,6 +59,7 @@ const NewsTicker = ({ newsItems = [] }) => {
       <Box sx={{ flex: 1, overflow: "hidden" }}>
         <Box
           sx={{
+            height: '100%',
             whiteSpace: "nowrap",
             display: "inline-flex",
             alignItems: "center",
@@ -75,8 +76,8 @@ const NewsTicker = ({ newsItems = [] }) => {
 
                   xs: "2vw",
                   md: "1.3vw"
-      
-                },                fontWeight: 500,
+
+                }, fontWeight: 500,
                 whiteSpace: "nowrap",
                 marginRight: "4vw",
               }}
