@@ -3,8 +3,6 @@ import { Box, Typography } from "@mui/material";
 import AurifyLogo from "/images/aurify-logo.svg";
 
 const PoweredByAurify = () => {
- 
-
   return (
     <Box
       sx={{
@@ -19,31 +17,32 @@ const PoweredByAurify = () => {
         // mt: "auto",
       }}
     >
- 
-
       <Typography
         component="a"
         href="https://www.aurify.ae"
         target="_blank"
         rel="noopener noreferrer"
         sx={{
-          fontSize: "0.9vw",
+          fontSize: {
+            xs: "2.5vw",
+            md: "0.9vw",
+          },
+
           fontWeight: 500,
           color: "#ffffff",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap:'0.5vw',
+          gap: "0.5vw",
           letterSpacing: "0.05em",
         }}
       >
         Powered by
-
         <img
           src={AurifyLogo}
           alt="Aurify"
           style={{
-            height: "1.4vw",
+            height: "clamp(22px, 1.8vw, 48px)",
             objectFit: "contain",
           }}
         />
