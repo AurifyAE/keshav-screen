@@ -20,7 +20,6 @@ export const SpotRateProvider = ({ children }) => {
     const updateMarketData = (marketData, goldBidSpread, goldAskSpread, silverBidSpread, silverAskSpread, platinumBidSpread, platinumAskSpread) => {
 
 
-        console.log('asdhsadjhasbdhjasdba',marketData);
         
         if (marketData) {
             const goldValues = calculateValues(marketData.Gold?.bid, goldBidSpread, goldAskSpread, 0.5);
