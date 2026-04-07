@@ -36,15 +36,37 @@ function TvScreen() {
 
   const adminId = import.meta.env.VITE_APP_ADMIN_ID;
 
-  updateMarketData(
+  // updateMarketData(
+  //   marketData,
+  //   goldBidSpread,
+  //   goldAskSpread,
+  //   silverBidSpread,
+  //   silverAskSpread,
+  //   platinumBidSpread,
+  //   platinumAskSpread,
+  // );
+  useEffect(() => {
+    if (marketData && Object.keys(marketData).length > 0) {
+      updateMarketData(
+        marketData,
+        goldBidSpread,
+        goldAskSpread,
+        silverBidSpread,
+        silverAskSpread,
+        platinumBidSpread,
+        platinumAskSpread
+      );
+    }
+  }, [
     marketData,
     goldBidSpread,
     goldAskSpread,
     silverBidSpread,
     silverAskSpread,
     platinumBidSpread,
-    platinumAskSpread,
-  );
+    platinumAskSpread
+  ]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -188,7 +210,7 @@ function TvScreen() {
         <Grid
           xs={12}
           md={6.5}
-          
+          item
           display="flex"
           flexDirection="column"
           justifyContent="space-around"
@@ -203,6 +225,7 @@ function TvScreen() {
         <Grid
           xs={12}
           md={5.5}
+          item
           display="flex"
           flexDirection="column"
           justifyContent="space-around"
@@ -214,6 +237,7 @@ function TvScreen() {
 
         <Grid
           md={12}
+          item
           sx={{
             position: "fixed",
             bottom: "0",
