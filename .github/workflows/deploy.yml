@@ -1,0 +1,75 @@
+name: Deploy Keshav Screen
+
+on:
+  push:
+    branches:
+      - main   # change to prod if needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+
+      # 1. Checkout latest code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Install dependencies
+      - name: Install Dependencies
+        run: npm ci   # faster & safer than npm install
+
+      # 3. Build project
+      - name: Build Project
+        run: npm run build
+        env:
+          VITE_APP_URL: ${{ secrets.VITE_APP_URL }}
+          VITE_APP_API_KEY: ${{ secrets.VITE_APP_API_KEY }}
+          VITE_APP_ADMIN_ID: ${{ secrets.VITE_APP_ADMIN_ID }}
+          VITE_APP_SOCKET_SECRET_KEY: ${{ secrets.VITE_APP_SOCKET_SECRET_KEY }}
+
+      # 4. Prepare Keshav folder (SAFE VERSION)
+      - name: Prepare Keshav folder
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo mkdir -p /var/www/html/TV_Screens/Keshav
+            sudo chown -R ubuntu:ubuntu /var/www/html/TV_Screens/Keshav
+
+      # 5. Upload new build
+      - name: Upload build files
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "dist/*"
+          target: "/var/www/html/TV_Screens/Keshav"
+          strip_components: 1
+
+      # 6. Fix permissions (better than chmod 755 everything)
+      - name: Set permissions
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo find /var/www/html/TV_Screens/Keshav -type d -exec chmod 755 {} \;
+            sudo find /var/www/html/TV_Screens/Keshav -type f -exec chmod 644 {} \;
+
+      # 7. Restart Nginx
+      - name: Restart Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo systemctl reload nginx
