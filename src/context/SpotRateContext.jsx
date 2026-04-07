@@ -56,4 +56,5 @@ export const SpotRateProvider = ({ children }) => {
     );
 };
 
+
 export const useSpotRate = () => useContext(SpotRateContext);
