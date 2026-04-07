@@ -182,10 +182,8 @@ const CommodityTable = ({ commodities }) => {
             <Typography
               sx={{
                 fontSize: {
-
                   xs: "2vw",
-                  md: "1.25vw"
-
+                  md: "1.25vw",
                 },
                 fontWeight: 700,
               }}
@@ -196,11 +194,10 @@ const CommodityTable = ({ commodities }) => {
             <Typography
               sx={{
                 fontSize: {
-
                   xs: "2vw",
-                  md: "1.25vw"
-
-                }, fontWeight: 700,
+                  md: "1.25vw",
+                },
+                fontWeight: 700,
                 textAlign: "center",
               }}
             >
@@ -210,11 +207,10 @@ const CommodityTable = ({ commodities }) => {
             <Typography
               sx={{
                 fontSize: {
-
                   xs: "2vw",
-                  md: "1.25vw"
-
-                }, fontWeight: 700,
+                  md: "1.25vw",
+                },
+                fontWeight: 700,
                 textAlign: "center",
               }}
             >
@@ -224,11 +220,10 @@ const CommodityTable = ({ commodities }) => {
             <Typography
               sx={{
                 fontSize: {
-
                   xs: "2vw",
-                  md: "1.25vw"
-
-                }, fontWeight: 700,
+                  md: "1.25vw",
+                },
+                fontWeight: 700,
                 textAlign: "center",
               }}
             >
