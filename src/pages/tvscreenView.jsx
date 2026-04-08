@@ -192,7 +192,7 @@ function TvScreen() {
     >
       <div className="background_overlay"></div>
       <div className="background_lines">
-        <img src="/images/background2.png" alt="Background Lines" />
+        <img src="/images/background2.webp" alt="Background Lines" />
       </div>
       {/* Grid */}
       <Grid
