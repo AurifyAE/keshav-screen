@@ -13,7 +13,12 @@ const WorldClockHorizontal = () => {
 
   // Keep this list limited to known-existing assets for stability on TVs.
   // Missing images can cause continuous 404s (especially with frequent rotation).
-  const rotatingImages = ["/images/background2.webp", "/images/background2.png"];
+  const rotatingImages = [
+    "/images/gold-bars.jpg",
+    "/images/silver-bars.jpg",
+    "/images/gold-coin.avif",
+    "/images/silver-coin.jpg",
+  ];
 
   useEffect(() => {
     const updateDate = () => {
