@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useSpotRate } from "../context/SpotRateContext";
+import { isLikelyAndroidTV } from "../utils/tv";
 
 
 const SpotRate = () => {
   const { goldData, silverData, platinumData } = useSpotRate();
+  const tvSafe = isLikelyAndroidTV();
 
 
 
@@ -24,42 +26,104 @@ const SpotRate = () => {
     platinumAsk: null,
   });
 
-  const detectChange = (prevVal, currVal, setDir) => {
-    if (prevVal === null) return currVal;
+  const neutralTimeouts = useRef({
+    goldBid: null,
+    goldAsk: null,
+    silverBid: null,
+    silverAsk: null,
+    platinumBid: null,
+    platinumAsk: null,
+  });
 
-    if (currVal > prevVal) {
+  const scheduleNeutral = (key, setDir) => {
+    const existing = neutralTimeouts.current[key];
+    if (existing) clearTimeout(existing);
+    neutralTimeouts.current[key] = setTimeout(() => {
+      setDir("neutral");
+      neutralTimeouts.current[key] = null;
+    }, 800);
+  };
+
+  const detectChange = (key, prevVal, currVal, setDir) => {
+    const prevNum =
+      prevVal === null || prevVal === undefined ? null : Number(prevVal);
+    const currNum =
+      currVal === null || currVal === undefined ? null : Number(currVal);
+
+    if (currNum === null || Number.isNaN(currNum)) return prevVal;
+    if (prevNum === null || Number.isNaN(prevNum)) return currNum;
+
+    if (currNum > prevNum) {
       setDir("rise");
-      setTimeout(() => setDir("neutral"), 800);
-    } else if (currVal < prevVal) {
+      scheduleNeutral(key, setDir);
+    } else if (currNum < prevNum) {
       setDir("fall");
-      setTimeout(() => setDir("neutral"), 800);
+      scheduleNeutral(key, setDir);
     }
 
-    return currVal;
+    return currNum;
   };
 
   useEffect(() => {
-    prev.current.goldBid = detectChange(prev.current.goldBid, goldData.bid, setGoldBidDir);
+    prev.current.goldBid = detectChange(
+      "goldBid",
+      prev.current.goldBid,
+      goldData.bid,
+      setGoldBidDir
+    );
   }, [goldData.bid]);
 
   useEffect(() => {
-    prev.current.goldAsk = detectChange(prev.current.goldAsk, goldData.ask, setGoldAskDir);
+    prev.current.goldAsk = detectChange(
+      "goldAsk",
+      prev.current.goldAsk,
+      goldData.ask,
+      setGoldAskDir
+    );
   }, [goldData.ask]);
 
   useEffect(() => {
-    prev.current.silverBid = detectChange(prev.current.silverBid, silverData.bid, setSilverBidDir);
+    prev.current.silverBid = detectChange(
+      "silverBid",
+      prev.current.silverBid,
+      silverData.bid,
+      setSilverBidDir
+    );
   }, [silverData.bid]);
 
   useEffect(() => {
-    prev.current.silverAsk = detectChange(prev.current.silverAsk, silverData.ask, setSilverAskDir);
+    prev.current.silverAsk = detectChange(
+      "silverAsk",
+      prev.current.silverAsk,
+      silverData.ask,
+      setSilverAskDir
+    );
   }, [silverData.ask]);
   useEffect(() => {
-    prev.current.platinumBid = detectChange(prev.current.platinumBid, platinumData.bid, setplatinumBidDir);
+    prev.current.platinumBid = detectChange(
+      "platinumBid",
+      prev.current.platinumBid,
+      platinumData.bid,
+      setplatinumBidDir
+    );
   }, [platinumData.bid]);
 
   useEffect(() => {
-    prev.current.platinumAsk = detectChange(prev.current.platinumAsk, platinumData.ask, setplatinumAskDir);
+    prev.current.platinumAsk = detectChange(
+      "platinumAsk",
+      prev.current.platinumAsk,
+      platinumData.ask,
+      setplatinumAskDir
+    );
   }, [platinumData.ask]);
+
+  useEffect(() => {
+    return () => {
+      for (const id of Object.values(neutralTimeouts.current)) {
+        if (id) clearTimeout(id);
+      }
+    };
+  }, []);
 
 
 
@@ -174,7 +238,7 @@ const SpotRate = () => {
           gridTemplateColumns: '0.8fr 1fr 1fr',
           borderRadius: '1vw',
           boxShadow: "0 0.8vw 3.2vw rgba(0,0,0,0.7)",
-          backdropFilter: "blur(0.4vw)",
+          ...(tvSafe ? {} : { backdropFilter: "blur(0.4vw)" }),
           ...(isGold || isSilver || isPlatinum ? { boxShadow: shadow } : {}),
         }}
       >
