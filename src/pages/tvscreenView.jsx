@@ -233,7 +233,7 @@ function TvScreen() {
           <Logo />
 
           <CommodityTable commodities={commodities} />
-          <PoweredByAurify />
+          {/* <PoweredByAurify /> */}
         </Grid>
 
         {/* Side: SpotRate & Date Time */}
