@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Grid, Paper, Typography, Box, useMediaQuery } from "@mui/material";
 import SpotRate from "../components/SpotRate";
 import CommodityTable from "../components/CommodityTable";
@@ -35,6 +35,9 @@ function TvScreen() {
   const { updateMarketData } = useSpotRate();
 
   const adminId = import.meta.env.VITE_APP_ADMIN_ID;
+
+  const marketDataRef = useRef({});
+  const flushTimerRef = useRef(null);
 
   // updateMarketData(
   //   marketData,
@@ -146,13 +149,21 @@ function TvScreen() {
 
       socket.on("market-data", (data) => {
         if (data && data.symbol) {
-          setMarketData((prevData) => ({
-            ...prevData,
+          marketDataRef.current = {
+            ...marketDataRef.current,
             [data.symbol]: {
-              ...prevData[data.symbol],
+              ...(marketDataRef.current[data.symbol] || {}),
               ...data,
             },
-          }));
+          };
+
+          // Throttle UI updates for TV/low-power browsers
+          if (!flushTimerRef.current) {
+            flushTimerRef.current = setTimeout(() => {
+              flushTimerRef.current = null;
+              setMarketData(marketDataRef.current);
+            }, 250);
+          }
         } else {
           console.warn("Received malformed market data:", data);
         }
@@ -165,6 +176,10 @@ function TvScreen() {
 
       // Cleanup function to disconnect the socket
       return () => {
+        if (flushTimerRef.current) {
+          clearTimeout(flushTimerRef.current);
+          flushTimerRef.current = null;
+        }
         socket.disconnect();
       };
     }

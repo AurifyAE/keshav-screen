@@ -1,7 +1,10 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { isLikelyAndroidTV } from "../utils/tv";
 
 const NewsTicker = ({ newsItems = [] }) => {
+  const tvSafe = isLikelyAndroidTV();
+
   // Ensure enough items for smooth scrolling
   const tickerItems =
     newsItems.length <= 1 ? Array(5).fill(newsItems[0]) : newsItems;
@@ -19,7 +22,7 @@ const NewsTicker = ({ newsItems = [] }) => {
         overflow: "hidden",
         background: " rgba(0,0,0,.4)",
         borderTop: "1px solid",
-        backdropFilter: "blur(15px)",
+        ...(tvSafe ? {} : { backdropFilter: "blur(15px)" }),
 
         borderImage:
           "linear-gradient(90deg,  #C9F89269,  #92F8C069, #B6E7FC57) 1",
@@ -66,6 +69,8 @@ const NewsTicker = ({ newsItems = [] }) => {
             display: "inline-flex",
             alignItems: "center",
             animation: "ticker 70s linear infinite",
+            willChange: "transform",
+            transform: "translate3d(0,0,0)",
           }}
         >
           {tickerItems.map((item, index) => (
@@ -94,10 +99,10 @@ const NewsTicker = ({ newsItems = [] }) => {
         {`
           @keyframes ticker {
             0% {
-              transform: translateX(30%);
+              transform: translate3d(30%, 0, 0);
             }
             100% {
-              transform: translateX(-100%);
+              transform: translate3d(-100%, 0, 0);
             }
           }
         `}

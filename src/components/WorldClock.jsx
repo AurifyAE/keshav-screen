@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
+import { isLikelyAndroidTV } from "../utils/tv";
 
 const WorldClockHorizontal = () => {
+  const tvSafe = isLikelyAndroidTV();
   const [dateInfo, setDateInfo] = useState({
     date: "",
     day: "",
@@ -9,12 +11,9 @@ const WorldClockHorizontal = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const rotatingImages = [
-    "/images/gold-bars.jpg",
-    "/images/silver-bars.jpg",
-    "/images/gold-coin.avif",
-    "/images/silver-coin.jpg",
-  ];
+  // Keep this list limited to known-existing assets for stability on TVs.
+  // Missing images can cause continuous 404s (especially with frequent rotation).
+  const rotatingImages = ["/images/background2.webp", "/images/background2.png"];
 
   useEffect(() => {
     const updateDate = () => {
@@ -43,9 +42,9 @@ const WorldClockHorizontal = () => {
   useEffect(() => {
     const imageInterval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % rotatingImages.length);
-    }, 1500);
+    }, tvSafe ? 10000 : 4000);
     return () => clearInterval(imageInterval);
-  }, []);
+  }, [tvSafe]);
 
   return (
     <Box
